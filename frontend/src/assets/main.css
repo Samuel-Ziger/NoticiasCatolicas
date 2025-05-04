@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-fundo: #E0F2FE;
+    --color-navbar: #1E3A8A;
+    --color-texto: #374151;
+    --color-destaque: #D4AF37;
+    --color-link: #3B82F6;
+    --color-branco: #FFFFFF;
+  }
+  
+  body {
+    @apply bg-[var(--color-fundo)] text-[var(--color-texto)];
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-colors duration-200 bg-white border-2 border-[var(--color-link)] text-[var(--color-link)] hover:bg-[var(--color-link)] hover:text-white hover:border-[var(--color-link)];
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-dark;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-secondary-dark;
+  }
+  
+  .btn-accent {
+    @apply bg-accent text-white hover:bg-accent-dark;
+  }
+  
+  .btn-destaque {
+    @apply border-2 border-[var(--color-destaque)] text-[var(--color-destaque)] hover:bg-[var(--color-destaque)] hover:text-white;
+  }
+  
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-md overflow-hidden;
+  }
+  
+  .card-header {
+    @apply p-4 border-b border-gray-200;
+  }
+  
+  .card-body {
+    @apply p-4;
+  }
+  
+  .card-footer {
+    @apply p-4 border-t border-gray-200;
+  }
+  
+  .form-input {
+    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm;
+  }
+  
+  .form-label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+  
+  .form-error {
+    @apply mt-1 text-sm text-red-600;
+  }
+  
+  .rich-content {
+    @apply prose max-w-none;
+  }
+  
+  .rich-content h1, .rich-content h2, .rich-content h3, .rich-content h4 {
+    @apply text-[var(--color-navbar)] font-bold;
+  }
+  
+  .rich-content h1 {
+    @apply text-3xl font-bold mb-4;
+  }
+  
+  .rich-content h2 {
+    @apply text-2xl font-bold mb-3;
+  }
+  
+  .rich-content h3 {
+    @apply text-xl font-bold mb-2;
+  }
+  
+  .rich-content p {
+    @apply mb-4;
+  }
+  
+  .rich-content ul {
+    @apply list-disc pl-6 mb-4;
+  }
+  
+  .rich-content ol {
+    @apply list-decimal pl-6 mb-4;
+  }
+  
+  .rich-content blockquote {
+    @apply border-l-4 border-[var(--color-destaque)] pl-4 italic my-4;
+  }
+  
+  .rich-content a {
+    @apply text-[var(--color-link)] hover:text-[var(--color-navbar)];
+  }
+}
+
+/* Estilos para conteúdo rico */
+.prose {
+  @apply text-gray-600;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  @apply text-gray-900 font-bold;
+}
+
+.prose h1 {
+  @apply text-3xl mb-6;
+}
+
+.prose h2 {
+  @apply text-2xl mb-4;
+}
+
+.prose h3 {
+  @apply text-xl mb-3;
+}
+
+.prose h4 {
+  @apply text-lg mb-2;
+}
+
+.prose p {
+  @apply mb-4;
+}
+
+.prose ul,
+.prose ol {
+  @apply mb-4 pl-6;
+}
+
+.prose ul {
+  @apply list-disc;
+}
+
+.prose ol {
+  @apply list-decimal;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-primary pl-4 italic;
+}
+
+.prose a {
+  @apply text-primary;
+}
+
+.prose a:hover {
+  color: var(--color-primary-hover);
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
+}
+
+nav {
+  @apply w-full bg-[var(--color-navbar)] shadow-md mb-8;
+}
+nav a, nav .router-link-active {
+  @apply text-white hover:text-[var(--color-destaque)] transition-colors font-medium;
+}
+nav .router-link-exact-active {
+  @apply text-[var(--color-destaque)] font-bold;
+}
