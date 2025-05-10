@@ -1,5 +1,5 @@
 <template>
-  <div class="noticias-container">
+  <div class="noticias-container w-full h-full px-2 md:px-8 py-8">
     <div class="filtros mb-6">
       <div class="flex flex-wrap gap-4">
         <select 
@@ -24,21 +24,22 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <div 
         v-for="noticia in noticiasFiltradas" 
         :key="noticia.id"
-        class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+        class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
       >
         <div class="aspect-w-16 aspect-h-9">
           <img 
-            :src="noticia.imagem || '/placeholder.jpg'" 
+            :src="noticia.imagem" 
             :alt="noticia.titulo"
             class="w-full h-48 object-cover"
+            @error="(e) => { e.target.onerror = null; e.target.src = imagensPadrao[noticia.fonte] || '/placeholder.jpg' }"
           />
         </div>
         
-        <div class="p-4">
+        <div class="p-4 flex-1 flex flex-col">
           <div class="flex items-center justify-between mb-2">
             <span class="text-sm text-gray-500">{{ formatarData(noticia.data) }}</span>
             <span class="text-sm font-medium text-primary">{{ noticia.fonte }}</span>
@@ -48,14 +49,14 @@
             {{ noticia.titulo }}
           </h3>
           
-          <p class="text-gray-600 mb-4 line-clamp-3">
+          <p class="text-gray-600 mb-4 line-clamp-3 flex-1">
             {{ noticia.resumo }}
           </p>
           
           <a 
             :href="noticia.link" 
             target="_blank"
-            class="text-primary hover:text-primary/80 font-medium"
+            class="text-primary hover:text-primary/80 font-medium mt-auto"
           >
             Ler mais
           </a>
@@ -135,6 +136,14 @@ const formatarData = (data: string) => {
   })
 }
 
+const imagensPadrao = {
+  'ACI Digital': 'https://www.acidigital.com/imagespp/AciDigital.jpg',
+  'CNBB': 'https://www.cnbb.org.br/wp-content/uploads/sites/58/2018/08/CNBB.png',
+  'Canção Nova': 'https://img.cancaonova.com/cnimages/canais/uploads/sites/11/2017/02/formacao_cn.png',
+  'Aleteia': 'https://pt.aleteia.org/wp-content/themes/aleteia/assets/images/aleteia-logo.png',
+  'Vatican News': 'https://www.vaticannews.va/content/dam/vaticannews/agenzie/images/srv/logo-vaticannews.png'
+}
+
 const buscarNoticias = async () => {
   try {
     carregando.value = true
@@ -154,7 +163,7 @@ onMounted(() => {
 
 <style scoped>
 .noticias-container {
-  @apply container mx-auto px-4 py-8;
+  @apply w-full h-full;
 }
 
 .line-clamp-2 {

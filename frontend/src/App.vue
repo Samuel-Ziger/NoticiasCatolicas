@@ -4,9 +4,9 @@ import Navbar from './components/Navbar.vue'
 </script>
 
 <template>
-  <div class="min-h-screen bg-fundo">
+  <div class="min-h-screen bg-fundo flex flex-col w-full">
     <Navbar />
-    <main class="w-full bg-white p-8 text-texto">
+    <main class="flex-1 w-full">
       <RouterView />
     </main>
   </div>
@@ -69,7 +69,6 @@ nav a:first-of-type {
     text-align: left;
     margin-left: -1rem;
     font-size: 1rem;
-
     padding: 1rem 0;
     margin-top: 1rem;
   }

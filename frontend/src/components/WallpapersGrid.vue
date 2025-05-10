@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="w-full h-full">
     <!-- Navbar de Filtros -->
     <nav class="bg-white shadow rounded-lg mb-8">
       <ul class="flex flex-wrap gap-2 px-4 py-2">
@@ -47,32 +47,34 @@
       <div
         v-for="wallpaper in wallpapersFiltrados"
         :key="wallpaper.id || wallpaper.imagem"
-        class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col"
       >
-        <router-link v-if="wallpaper.id" :to="`/wallpapers/${wallpaper.id}`">
+        <router-link v-if="wallpaper.id" :to="`/wallpapers/${wallpaper.id}`" class="flex flex-col flex-1">
           <img
-            :src="`/wallpapers/${formatImageName(wallpaper.imagem)}`"
+            :src="wallpaper.url || wallpaper.urlThumbnail || '/placeholder.jpg'"
             :alt="wallpaper.titulo"
             class="w-full h-48 object-cover"
+            @error="(e) => e.target.src = '/placeholder.jpg'"
           />
-          <div class="p-4">
+          <div class="p-4 flex-1 flex flex-col">
             <h3 class="text-lg font-semibold text-gray-800">{{ wallpaper.titulo }}</h3>
-            <p class="text-sm text-gray-600 mt-2">{{ wallpaper.descricao }}</p>
+            <p class="text-sm text-gray-600 mt-2 flex-1">{{ wallpaper.descricao }}</p>
           </div>
         </router-link>
-        <div v-else class="group cursor-pointer">
+        <div v-else class="group cursor-pointer flex flex-col flex-1">
           <img
-            :src="wallpaper.imagem"
+            :src="wallpaper.url || wallpaper.urlThumbnail || '/placeholder.jpg'"
             :alt="wallpaper.titulo"
             class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity duration-200"
+            @error="(e) => e.target.src = '/placeholder.jpg'"
           />
-          <div class="p-4">
+          <div class="p-4 flex-1 flex flex-col">
             <h3 class="text-lg font-semibold text-gray-800 flex items-center">
               {{ wallpaper.titulo }}
               <svg v-if="wallpaper.fonte" class="ml-2 w-4 h-4 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </h3>
-            <p class="text-sm text-gray-600 mt-2">{{ wallpaper.descricao }}</p>
-            <span class="text-xs text-gray-400">Fonte: {{ wallpaper.fonte }}</span>
+            <p class="text-sm text-gray-600 mt-2 flex-1">{{ wallpaper.descricao }}</p>
+            <span class="text-xs text-gray-400 mt-2">Fonte: {{ wallpaper.fonte }}</span>
           </div>
         </div>
       </div>

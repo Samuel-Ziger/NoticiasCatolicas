@@ -1,5 +1,5 @@
 <template>
-  <div class="igreja-container">
+  <div class="igreja-container w-full h-full">
     <div class="filtros mb-6">
       <div class="flex flex-wrap gap-4">
         <select 
@@ -26,11 +26,11 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div class="lg:col-span-2">
-        <div class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <article 
             v-for="artigo in artigosFiltrados" 
             :key="artigo.id"
-            class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+            class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
           >
             <div v-if="artigo.imagem" class="aspect-w-16 aspect-h-9">
               <img 
@@ -40,7 +40,7 @@
               />
             </div>
             
-            <div class="p-6">
+            <div class="p-6 flex-1 flex flex-col">
               <div class="flex items-center justify-between mb-2">
                 <span class="text-sm text-gray-500">
                   {{ formatarData(artigo.data) }}
@@ -69,7 +69,7 @@
                 </span>
               </div>
               
-              <div class="prose max-w-none" v-html="artigo.resumo"></div>
+              <div class="prose max-w-none flex-1" v-html="artigo.resumo"></div>
               
               <router-link 
                 :to="`/igreja/${artigo.slug}`"
@@ -83,7 +83,7 @@
       </div>
 
       <div class="lg:col-span-1">
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="bg-white rounded-lg shadow-md p-6 sticky top-6">
           <h3 class="text-xl font-bold mb-4">Linha do Tempo</h3>
           
           <div class="space-y-4">
@@ -187,6 +187,6 @@ onMounted(() => {
 
 <style scoped>
 .igreja-container {
-  @apply container mx-auto px-4 py-8;
+  @apply w-full h-full;
 }
 </style> 

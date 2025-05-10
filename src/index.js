@@ -8,6 +8,8 @@ const igrejaRoutes = require('./modules/igreja/igreja.routes');
 const rosarioRoutes = require('./modules/rosario/rosario.routes');
 const ensinamentosRoutes = require('./modules/ensinamentos/ensinamentos.routes');
 const { atualizarNoticias } = require('./modules/noticias/noticias.service');
+const path = require('path');
+const santosRoutes = require('./modules/santos/santos.routes');
 
 const app = express();
 const prisma = new PrismaClient();
@@ -28,6 +30,7 @@ app.use('/api/caminho', caminhoRoutes);
 app.use('/api/igreja', igrejaRoutes);
 app.use('/api/rosario', rosarioRoutes);
 app.use('/api/ensinamentos', ensinamentosRoutes);
+app.use('/api/santos', santosRoutes);
 
 // Rota inicial
 app.get('/api', (req, res) => {
@@ -39,6 +42,8 @@ setInterval(atualizarNoticias, 5 * 60 * 1000);
 
 // Primeira atualização ao iniciar o servidor
 atualizarNoticias();
+
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

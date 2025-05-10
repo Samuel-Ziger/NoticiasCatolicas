@@ -72,14 +72,26 @@ const buscarNoticiasRSS = async () => {
       
       for (const item of feed.items) {
         try {
+          // Busca a melhor imagem possível
+          let imagem = item.enclosure?.url ||
+            (item['media:content'] && Array.isArray(item['media:content'])
+              ? item['media:content'].sort((a, b) => (b.$?.width || 0) - (a.$?.width || 0))[0]?.$.url
+              : item['media:content']?.$.url
+            ) ||
+            item.image?.url ||
+            item['media:thumbnail']?.url ||
+            '';
+
+          // Se a imagem for vazia, nula ou claramente inválida, usa a imagem padrão da fonte
+          if (!imagem || typeof imagem !== 'string' || imagem.length < 10 || imagem.startsWith('data:')) {
+            imagem = fonte.imagemPadrao;
+          }
+
           const noticia = {
             titulo: limparTexto(item.title),
             link: item.link,
             descricao: limparTexto(item.content || item.description || ''),
-            imagem: item.enclosure?.url || 
-                   item['media:content']?.$.url || 
-                   item.image?.url || 
-                   fonte.imagemPadrao,
+            imagem,
             data: new Date(item.pubDate || item.date || new Date()),
             fonte: fonte.nome
           };

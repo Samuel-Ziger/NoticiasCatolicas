@@ -19,6 +19,13 @@ model Noticia {
   updatedAt DateTime @updatedAt
 }
 
+model Santo {
+  id        Int        @id @default(autoincrement())
+  nome      String
+  imagem    String?    // Imagem principal do santo
+  wallpapers Wallpaper[]
+}
+
 model Wallpaper {
   id          Int      @id @default(autoincrement())
   titulo      String
@@ -32,4 +39,6 @@ model Wallpaper {
   downloads   Int       @default(0)  // Contador de downloads
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  santoId     Int?
+  santo       Santo?    @relation(fields: [santoId], references: [id])
 } 

@@ -11,6 +11,7 @@ import IgrejaDetalheView from '../views/IgrejaDetalheView.vue'
 import RosarioView from '../views/RosarioView.vue'
 import EnsinamentosView from '../views/EnsinamentosView.vue'
 import EnsinamentoDetalheView from '../views/EnsinamentoDetalheView.vue'
+import AdminSantosView from '../views/AdminSantosView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -74,6 +75,11 @@ const router = createRouter({
       path: '/ensinamentos/:id',
       name: 'ensinamento-detalhe',
       component: EnsinamentoDetalheView
+    },
+    {
+      path: '/admin/santos',
+      name: 'admin-santos',
+      component: AdminSantosView
     }
   ]
 })
